@@ -55,147 +55,48 @@
     .bank-option.no-result:hover { background: none; }
 
     /* ========== API SETTINGS PANEL ========== */
-    .api-settings-panel {
-      background: white;
-      border-radius: 14px;
-      border: 2px solid #e0e7ef;
-      margin-bottom: 18px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-      transition: box-shadow 0.2s;
-    }
+    .api-settings-panel { background: white; border-radius: 14px; border: 2px solid #e0e7ef; margin-bottom: 18px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.07); transition: box-shadow 0.2s; }
     .api-settings-panel:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
-    .api-settings-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      cursor: pointer;
-      background: linear-gradient(90deg, #f0f4ff 0%, #e8f4fd 100%);
-      user-select: none;
-    }
+    .api-settings-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; background: linear-gradient(90deg, #f0f4ff 0%, #e8f4fd 100%); user-select: none; }
     .api-settings-header:hover { background: linear-gradient(90deg, #e3eaff 0%, #d7ecfa 100%); }
     .api-settings-header-left { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: #1a3a5c; }
     .api-settings-header-left .icon { font-size: 20px; }
     .api-settings-toggle { font-size: 13px; color: #5b8ec4; font-weight: 600; padding: 4px 12px; border: 1.5px solid #5b8ec4; border-radius: 20px; background: white; cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap; }
     .api-settings-toggle:hover { background: #5b8ec4; color: white; }
-    .api-settings-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
-      padding: 0 16px;
-    }
-    .api-settings-body.open {
-      max-height: 400px;
-      padding: 14px 16px 16px;
-    }
-    .api-field-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #555;
-      margin-top: 10px;
-      margin-bottom: 2px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .api-field-label .badge {
-      background: #e8f4fd;
-      color: #1976D2;
-      font-size: 11px;
-      border-radius: 10px;
-      padding: 1px 8px;
-      font-weight: 600;
-    }
+    .api-settings-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s; padding: 0 16px; }
+    .api-settings-body.open { max-height: 900px; padding: 14px 16px 16px; }
+
+    /* Section dividers inside panel */
+    .api-section-heading { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; text-transform: uppercase; margin: 14px 0 6px; display: flex; align-items: center; gap: 8px; }
+    .api-section-heading::after { content: ''; flex: 1; height: 1px; background: #e8eef5; }
+    .api-field-label { font-size: 13px; font-weight: 600; color: #555; margin-top: 10px; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+    .badge { font-size: 11px; border-radius: 10px; padding: 1px 8px; font-weight: 600; }
+    .badge-blue   { background: #e8f4fd; color: #1976D2; }
+    .badge-orange { background: #fff3e0; color: #e65100; }
+    .badge-teal   { background: #e0f2f1; color: #00695c; }
+
     .api-input-wrap { position: relative; }
-    .api-input-wrap input {
-      padding-right: 42px;
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      color: #1a3a5c;
-      background: #f7faff;
-      border: 1.5px solid #b3cde8;
-      margin: 0;
-    }
-    .api-input-wrap input:focus { border-color: #2196F3; background: white; outline: none; }
-    .api-eye-btn {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      padding: 0;
-      margin: 0;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      border-radius: 6px;
-      transition: background 0.15s;
-    }
+    .api-input-wrap input, .api-input-plain { padding-right: 42px; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 0.5px; color: #1a3a5c; background: #f7faff; border: 1.5px solid #b3cde8; border-radius: 8px; margin: 0; width: 100%; box-sizing: border-box; padding: 9px 42px 9px 12px; }
+    .api-input-plain { padding-right: 12px; }
+    .api-input-wrap input:focus, .api-input-plain:focus { border-color: #2196F3; background: white; outline: none; }
+    .api-eye-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; margin: 0; width: 30px; height: 30px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: #888; border-radius: 6px; transition: background 0.15s; }
     .api-eye-btn:hover { background: #e8f0fc; }
     .api-actions { display: flex; gap: 8px; margin-top: 14px; }
-    .api-btn-save {
-      flex: 1;
-      background: linear-gradient(90deg, #1976D2, #42a5f5);
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      border: none;
-      border-radius: 8px;
-      padding: 10px;
-      cursor: pointer;
-      transition: filter 0.2s;
-      margin: 0;
-    }
+    .api-btn-save { flex: 1; background: linear-gradient(90deg, #1976D2, #42a5f5); color: white; font-weight: 700; font-size: 14px; border: none; border-radius: 8px; padding: 10px; cursor: pointer; transition: filter 0.2s; margin: 0; }
     .api-btn-save:hover { filter: brightness(1.08); }
-    .api-btn-reset {
-      background: #f5f5f5;
-      color: #555;
-      font-weight: 600;
-      font-size: 14px;
-      border: 1.5px solid #ccc;
-      border-radius: 8px;
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: background 0.15s;
-      margin: 0;
-      width: auto;
-    }
+    .api-btn-reset { background: #f5f5f5; color: #555; font-weight: 600; font-size: 14px; border: 1.5px solid #ccc; border-radius: 8px; padding: 10px 16px; cursor: pointer; transition: background 0.15s; margin: 0; width: auto; }
     .api-btn-reset:hover { background: #eee; }
-    .api-status-msg {
-      font-size: 13px;
-      margin-top: 8px;
-      min-height: 18px;
-      text-align: center;
-      font-weight: 600;
-      transition: opacity 0.3s;
-    }
+    .api-status-msg { font-size: 13px; margin-top: 8px; min-height: 18px; text-align: center; font-weight: 600; transition: opacity 0.3s; }
     .api-status-msg.success { color: #2e7d32; }
+    .api-status-msg.error { color: #c62828; }
     .active-key-box { background: #f0f7ff; border: 1.5px dashed #90caf9; border-radius: 10px; padding: 10px 14px; margin-top: 12px; }
     .active-key-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
-    .active-key-label { font-size: 12px; font-weight: 700; color: #555; min-width: 80px; }
+    .active-key-label { font-size: 12px; font-weight: 700; color: #555; min-width: 100px; flex-shrink: 0; }
     .active-key-val { font-family: 'Courier New', monospace; font-size: 12px; color: #1a3a5c; background: #dbeafe; border-radius: 6px; padding: 4px 8px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .active-key-val.is-default { background: #fef9c3; color: #92400e; }
     .btn-copy-key { background: #1976D2; color: white; border: none; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; margin: 0; width: auto; }
     .btn-copy-key:hover { background: #1565C0; }
-    .api-status-msg.error { color: #c62828; }
-    .api-saved-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ccc;
-      margin-left: 6px;
-      vertical-align: middle;
-      transition: background 0.3s;
-    }
+    .api-saved-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ccc; margin-left: 6px; vertical-align: middle; transition: background 0.3s; }
     .api-saved-indicator.saved { background: #4CAF50; }
   </style>
 </head>
@@ -211,39 +112,77 @@
   <div class="api-settings-header" onclick="toggleApiPanel()">
     <div class="api-settings-header-left">
       <span class="icon">⚙️</span>
-      Cài đặt API Key
-      <span class="api-saved-indicator" id="apiSavedDot" title="Đã lưu API key"></span>
+      Cài đặt API & Hệ thống
+      <span class="api-saved-indicator" id="apiSavedDot" title="Đã lưu cài đặt"></span>
     </div>
     <button class="api-settings-toggle" id="apiToggleBtn" onclick="event.stopPropagation(); toggleApiPanel()">▼ Mở</button>
   </div>
   <div class="api-settings-body" id="apiSettingsBody">
+
+    <!-- NHÓM 1: API KEYS -->
+    <div class="api-section-heading">🔑 API Keys</div>
+
     <div class="api-field-label">
       🔑 API Key chính
-      <span class="badge">DEFAULT_API_KEY</span>
+      <span class="badge badge-blue">DEFAULT_API_KEY</span>
     </div>
     <div class="api-input-wrap">
       <input type="password" id="inputApiKey" placeholder="Nhập API Key..." autocomplete="off" />
       <button class="api-eye-btn" onclick="toggleVisible('inputApiKey', 'eye1')" id="eye1" title="Hiện/ẩn">👁️</button>
     </div>
 
-    <div class="api-field-label" style="margin-top:14px;">
+    <div class="api-field-label" style="margin-top:10px;">
       🤖 Captcha API Key
-      <span class="badge">DEFAULT_CAPTCHA_API_KEY</span>
+      <span class="badge badge-blue">DEFAULT_CAPTCHA_API_KEY</span>
     </div>
     <div class="api-input-wrap">
       <input type="password" id="inputCaptchaKey" placeholder="Nhập Captcha API Key..." autocomplete="off" />
       <button class="api-eye-btn" onclick="toggleVisible('inputCaptchaKey', 'eye2')" id="eye2" title="Hiện/ẩn">👁️</button>
     </div>
 
+    <!-- NHÓM 2: MẬT KHẨU -->
+    <div class="api-section-heading" style="margin-top:18px;">🔒 Mật khẩu hệ thống</div>
+
+    <div class="api-field-label">
+      🔑 Mật khẩu đăng ký
+      <span class="badge badge-orange">PASSWORD</span>
+    </div>
+    <div class="api-input-wrap">
+      <input type="password" id="inputPassword" placeholder="Nhập mật khẩu đăng ký..." autocomplete="new-password" />
+      <button class="api-eye-btn" onclick="toggleVisible('inputPassword', 'eye3')" id="eye3" title="Hiện/ẩn">👁️</button>
+    </div>
+
+    <div class="api-field-label" style="margin-top:10px;">
+      🔒 Mật khẩu rút tiền
+      <span class="badge badge-orange">WITHDRAW_PASSWORD</span>
+    </div>
+    <div class="api-input-wrap">
+      <input type="password" id="inputWithdrawPassword" placeholder="Nhập mật khẩu rút tiền..." autocomplete="new-password" />
+      <button class="api-eye-btn" onclick="toggleVisible('inputWithdrawPassword', 'eye4')" id="eye4" title="Hiện/ẩn">👁️</button>
+    </div>
+
+    <!-- NHÓM 3: TELEGRAM -->
+    <div class="api-section-heading" style="margin-top:18px;">📱 Telegram</div>
+
+    <div class="api-field-label">
+      💬 Telegram Chat ID
+      <span class="badge badge-teal">TG_CHATID</span>
+    </div>
+    <div style="position:relative;">
+      <input type="text" id="inputTgChatId" placeholder="Nhập Telegram Chat ID..." autocomplete="off"
+        style="font-family:'Courier New',monospace;font-size:14px;letter-spacing:0.5px;color:#1a3a5c;background:#f7faff;border:1.5px solid #b3cde8;border-radius:8px;margin:0;width:100%;box-sizing:border-box;padding:9px 12px;" />
+    </div>
+
+    <!-- ACTIONS -->
     <div class="api-actions">
-      <button class="api-btn-save" onclick="saveApiKeys()">💾 Lưu API Keys</button>
+      <button class="api-btn-save" onclick="saveApiKeys()">💾 Lưu tất cả cài đặt</button>
       <button class="api-btn-reset" onclick="resetApiKeys()">🔄 Reset</button>
     </div>
     <div class="api-status-msg" id="apiStatusMsg"></div>
 
     <div style="margin-top:10px;">
       <button onclick="showActiveKeys()" style="width:100%;background:#f0f7ff;border:1.5px solid #90caf9;border-radius:8px;padding:9px;font-size:14px;font-weight:600;color:#1565C0;cursor:pointer;margin:0;">
-        🔍 Xem key đang hoạt động
+        🔍 Xem cài đặt đang hoạt động
       </button>
     </div>
     <div class="active-key-box" id="activeKeyBox" style="display:none;">
@@ -256,6 +195,21 @@
         <span class="active-key-label">🤖 Captcha:</span>
         <span class="active-key-val" id="activeCaptchaKeyVal"></span>
         <button class="btn-copy-key" onclick="copyActiveKey('activeCaptchaKeyVal')">📋 Copy</button>
+      </div>
+      <div class="active-key-row">
+        <span class="active-key-label">🔑 MK Đăng ký:</span>
+        <span class="active-key-val" id="activePasswordVal"></span>
+        <button class="btn-copy-key" onclick="copyActiveKey('activePasswordVal')">📋 Copy</button>
+      </div>
+      <div class="active-key-row">
+        <span class="active-key-label">🔒 MK Rút tiền:</span>
+        <span class="active-key-val" id="activeWithdrawVal"></span>
+        <button class="btn-copy-key" onclick="copyActiveKey('activeWithdrawVal')">📋 Copy</button>
+      </div>
+      <div class="active-key-row">
+        <span class="active-key-label">💬 TG Chat ID:</span>
+        <span class="active-key-val" id="activeTgChatIdVal"></span>
+        <button class="btn-copy-key" onclick="copyActiveKey('activeTgChatIdVal')">📋 Copy</button>
       </div>
     </div>
   </div>
@@ -306,114 +260,31 @@
 <div id="accountList">Đang tải danh sách...</div>
 
 <script>
-  // Các hàm API key được khởi tạo trong script type="module" bên dưới
-  // sau khi Firebase db sẵn sàng.
   window.toggleVisible = function(inputId, btnId) {
     var inp = document.getElementById(inputId);
     var btn = document.getElementById(btnId);
-    if (inp.type === "password") { inp.type = "text";     btn.textContent = "🙈"; }
-    else                         { inp.type = "password"; btn.textContent = "👁️"; }
+    if (inp.type === "password") { inp.type = "text"; btn.textContent = "🙈"; }
+    else { inp.type = "password"; btn.textContent = "👁️"; }
   };
 
-  // ========== BANK LIST ==========
   const STATIC_BANK_LIST = ["ABBANK","ACB BANK","AGRIBANK","ANZ BANK","BAC A BANK","BAO VIET BANK","BIDV BANK","BIDC","BVBANK","CAKE","CB BANK","CIMB","CIMB BANK","CITI","CO OPBANK","Co-opBank","DBS","EXIMBANK","FIRST BANK","GP BANK","HD BANK","HNB","HONGLEONG BANK","HSBC","IBK","IBK HCM","INDOVINA BANK","IVB","KASIKORNBANK","KB KOOKMIN BANK","KBANK","KEB Hana Bank","KIENLONGBANK","KOOKMI","LIENVIET BANK","LIOBANK","LP BANK","MAFC","MBBANK","MBV","MBV BANK","Mirae Asset Finance Company","MOMO","MSB","MSB BANK","NAMA BANK","NCB","NCB BANK","NHB","NONGHYUP BANK","OCB BANK","PGBANK","PUBLICBANK","PVCOMBANK","SACOMBANK","SAIGONBANK","SCB","SCB BANK","SCBVL","SEABANK","SHB BANK","SHINHAN BANK","SHINHAN BANK VN","Social Policy Bank of Vietnam","Standard Chartered","State Bank of Vietnam","TECHCOMBANK","TIMO BANK","TIMO BY BAN VIET BANK","TPBANK","UBANK","UOB","UOB (United Overseas Bank)","VDB","VIB BANK","VIET CAPITAL BANK (BVBANK)","VIETA BANK","VIETBANK","VIETCOMBANK","VIETINBANK","VIETNAM BANK FOR SOCIAL POLICIES","Vietnam Development Bank","Vietcombank Neo Limited (VCBNeo)","VIKKI BANK","VIKKI BY HDBANK","Vikki Digital Bank","VPBANK","VR BANK","VRB(VIET NGA)","WOORI BANK","ALL BANK SUPPORT","Saigon-Hanoi Commercial Joint Stock Bank"];
-
   var LOGO_MAP = {};
 
-  fetch("https://api.vietqr.io/v2/banks")
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (data && data.data) {
-        data.data.forEach(function(b){
-          if (b.logo) {
-            LOGO_MAP[b.shortName.toUpperCase()] = b.logo;
-            LOGO_MAP[b.code.toUpperCase()] = b.logo;
-          }
-        });
-      }
-      ["tagSelect","bulkTag"].forEach(function(id){
-        var dd = document.getElementById("dropdown-" + id);
-        if (dd && dd.classList.contains("open")) renderBankList(id, "");
-      });
-      ["tagSelect","bulkTag"].forEach(function(id){
-        var val = document.getElementById(id) && document.getElementById(id).value;
-        if (val) _updateDisplayLogo(id, val);
-      });
-    })
-    .catch(function(){});
+  fetch("https://api.vietqr.io/v2/banks").then(r=>r.json()).then(data=>{
+    if(data&&data.data){data.data.forEach(b=>{if(b.logo){LOGO_MAP[b.shortName.toUpperCase()]=b.logo;LOGO_MAP[b.code.toUpperCase()]=b.logo;}});}
+    ["tagSelect","bulkTag"].forEach(id=>{var dd=document.getElementById("dropdown-"+id);if(dd&&dd.classList.contains("open"))renderBankList(id,"");});
+    ["tagSelect","bulkTag"].forEach(id=>{var val=document.getElementById(id)&&document.getElementById(id).value;if(val)_updateDisplayLogo(id,val);});
+  }).catch(()=>{});
 
-  function _getLogo(bankName) {
-    if (LOGO_MAP[bankName.toUpperCase()]) return LOGO_MAP[bankName.toUpperCase()];
-    var noBank = bankName.toUpperCase().replace(/\s+BANK$/, "").trim();
-    if (LOGO_MAP[noBank]) return LOGO_MAP[noBank];
-    var first = bankName.toUpperCase().split(" ")[0];
-    if (LOGO_MAP[first]) return LOGO_MAP[first];
-    return "";
-  }
-
-  function _updateDisplayLogo(id, val) {
-    var display = document.getElementById("display-" + id);
-    if (!display) return;
-    var logo = _getLogo(val);
-    var imgHtml = logo ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">' : '🏦';
-    display.innerHTML = imgHtml + '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + val + '</span>';
-  }
-
-  function renderBankList(id, filter) {
-    filter = filter || "";
-    var list = document.getElementById("list-" + id);
-    if (!list) return;
-    var lower = filter.toLowerCase();
-    var filtered = STATIC_BANK_LIST.filter(function(b){ return b.toLowerCase().includes(lower); });
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="bank-option no-result">Không tìm thấy ngân hàng</div>';
-      return;
-    }
-    list.innerHTML = filtered.map(function(b){
-      var logo = _getLogo(b);
-      var icon = logo
-        ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:22px;height:22px;object-fit:contain;border-radius:4px;flex-shrink:0;">'
-        : '<span style="font-size:18px;flex-shrink:0;">🏦</span>';
-      return '<div class="bank-option" onclick="selectBank(\'' + id + '\',\'' + b.replace(/'/g,"\\'") + '\')" style="display:flex;align-items:center;gap:10px;">' + icon + '<span>' + b + '</span></div>';
-    }).join("");
-  }
-
-  function toggleBankDropdown(id) {
-    var dd = document.getElementById("dropdown-" + id);
-    var isOpen = dd.classList.contains("open");
-    document.querySelectorAll(".bank-dropdown.open").forEach(function(el){ el.classList.remove("open"); });
-    if (!isOpen) {
-      dd.classList.add("open");
-      renderBankList(id, "");
-      var inp = dd.querySelector("input");
-      inp.value = "";
-      inp.focus();
-    }
-  }
-
-  function filterBankOptions(id, val) { renderBankList(id, val); }
-
-  window.getBankLogo = function(name) { return _getLogo(name); };
-
-  function selectBank(id, val) {
-    document.getElementById(id).value = val;
-    var display = document.getElementById("display-" + id);
-    var logo = _getLogo(val);
-    var imgHtml = logo ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">' : '🏦';
-    display.innerHTML = imgHtml + '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + val + '</span>';
-    display.closest(".bank-select-display").classList.remove("placeholder");
-    document.getElementById("dropdown-" + id).classList.remove("open");
-  }
-
-  document.addEventListener("click", function(e) {
-    if (!e.target.closest(".bank-select-wrapper")) {
-      document.querySelectorAll(".bank-dropdown.open").forEach(function(el){ el.classList.remove("open"); });
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", function() {
-    ["tagSelect","bulkTag"].forEach(function(id){ renderBankList(id, ""); });
-  });
+  function _getLogo(n){if(LOGO_MAP[n.toUpperCase()])return LOGO_MAP[n.toUpperCase()];var nb=n.toUpperCase().replace(/\s+BANK$/,"").trim();if(LOGO_MAP[nb])return LOGO_MAP[nb];var f=n.toUpperCase().split(" ")[0];if(LOGO_MAP[f])return LOGO_MAP[f];return "";}
+  function _updateDisplayLogo(id,val){var d=document.getElementById("display-"+id);if(!d)return;var l=_getLogo(val);var i=l?'<img src="'+l+'" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">':'🏦';d.innerHTML=i+'<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+val+'</span>';}
+  function renderBankList(id,filter){filter=filter||"";var list=document.getElementById("list-"+id);if(!list)return;var lower=filter.toLowerCase();var filtered=STATIC_BANK_LIST.filter(b=>b.toLowerCase().includes(lower));if(filtered.length===0){list.innerHTML='<div class="bank-option no-result">Không tìm thấy ngân hàng</div>';return;}list.innerHTML=filtered.map(b=>{var l=_getLogo(b);var icon=l?'<img src="'+l+'" onerror="this.style.display=\'none\'" style="width:22px;height:22px;object-fit:contain;border-radius:4px;flex-shrink:0;">':'<span style="font-size:18px;flex-shrink:0;">🏦</span>';return'<div class="bank-option" onclick="selectBank(\''+id+'\',\''+b.replace(/'/g,"\\'")+\')" style="display:flex;align-items:center;gap:10px;">'+icon+'<span>'+b+'</span></div>';}).join("");}
+  function toggleBankDropdown(id){var dd=document.getElementById("dropdown-"+id);var isOpen=dd.classList.contains("open");document.querySelectorAll(".bank-dropdown.open").forEach(el=>el.classList.remove("open"));if(!isOpen){dd.classList.add("open");renderBankList(id,"");var inp=dd.querySelector("input");inp.value="";inp.focus();}}
+  function filterBankOptions(id,val){renderBankList(id,val);}
+  window.getBankLogo=n=>_getLogo(n);
+  function selectBank(id,val){document.getElementById(id).value=val;var d=document.getElementById("display-"+id);var l=_getLogo(val);var i=l?'<img src="'+l+'" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">':'🏦';d.innerHTML=i+'<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+val+'</span>';d.closest(".bank-select-display").classList.remove("placeholder");document.getElementById("dropdown-"+id).classList.remove("open");}
+  document.addEventListener("click",e=>{if(!e.target.closest(".bank-select-wrapper"))document.querySelectorAll(".bank-dropdown.open").forEach(el=>el.classList.remove("open"));});
+  document.addEventListener("DOMContentLoaded",()=>{["tagSelect","bulkTag"].forEach(id=>renderBankList(id,""));});
 </script>
 
 <script type="module">
@@ -439,36 +310,58 @@
   const settingsRef = doc(db, "settings", "apiKeys");
   let allAccounts = [];
 
-  // ========== API KEY MANAGEMENT (Firestore) ==========
+  // ===== DEFAULTS =====
   const DEFAULT_API_KEY         = "ed7192f2d8bd0a6ee3b60a1915cc0084";
   const DEFAULT_CAPTCHA_API_KEY = "7354dfda0562f14700d36f923868d5e7";
 
-  window.getApiKey        = () => window._cachedApiKey        || DEFAULT_API_KEY;
-  window.getCaptchaApiKey = () => window._cachedCaptchaApiKey || DEFAULT_CAPTCHA_API_KEY;
+  // Getters — dùng trong các script khác qua window.*
+  window.getApiKey            = () => window._cfg?.apiKey            || DEFAULT_API_KEY;
+  window.getCaptchaApiKey     = () => window._cfg?.captchaApiKey     || DEFAULT_CAPTCHA_API_KEY;
+  window.getPassword          = () => window._cfg?.password          || "";
+  window.getWithdrawPassword  = () => window._cfg?.withdrawPassword  || "";
+  window.getTgChatId          = () => window._cfg?.tgChatId          || "";
+
+  window._cfg = {};
 
   function setStatusMsg(msg, type) {
     const el = document.getElementById("apiStatusMsg");
-    el.textContent = msg;
-    el.className = "api-status-msg " + type;
+    el.textContent = msg; el.className = "api-status-msg " + type;
     if (msg) setTimeout(() => { el.textContent = ""; el.className = "api-status-msg"; }, 3500);
   }
 
   function updateSavedDot(hasSaved) {
     const dot = document.getElementById("apiSavedDot");
     dot.classList.toggle("saved", !!hasSaved);
-    dot.title = hasSaved ? "Đã lưu API key trên Firebase" : "Đang dùng key mặc định";
+    dot.title = hasSaved ? "Đã lưu cài đặt trên Firebase" : "Đang dùng giá trị mặc định";
   }
 
-  async function loadApiKeysFromFirebase() {
+  function applyDataToCache(d) {
+    window._cfg = {
+      apiKey:           d.apiKey           || "",
+      captchaApiKey:    d.captchaApiKey    || "",
+      password:         d.password         || "",
+      withdrawPassword: d.withdrawPassword || "",
+      tgChatId:         d.tgChatId         || "",
+    };
+  }
+
+  function fillFormFromCache() {
+    document.getElementById("inputApiKey").value           = window._cfg.apiKey;
+    document.getElementById("inputCaptchaKey").value       = window._cfg.captchaApiKey;
+    document.getElementById("inputPassword").value         = window._cfg.password;
+    document.getElementById("inputWithdrawPassword").value = window._cfg.withdrawPassword;
+    document.getElementById("inputTgChatId").value         = window._cfg.tgChatId;
+  }
+
+  async function loadSettings() {
     try {
       const snap = await getDoc(settingsRef);
       if (snap.exists()) {
+        applyDataToCache(snap.data());
         const d = snap.data();
-        if (d.apiKey)        window._cachedApiKey        = d.apiKey;
-        if (d.captchaApiKey) window._cachedCaptchaApiKey = d.captchaApiKey;
-        updateSavedDot(!!(d.apiKey || d.captchaApiKey));
+        updateSavedDot(!!(d.apiKey || d.captchaApiKey || d.password || d.withdrawPassword || d.tgChatId));
       }
-    } catch(e) { console.warn("Không tải được API key:", e); }
+    } catch(e) { console.warn("Không tải được cài đặt:", e); }
   }
 
   window.toggleApiPanel = async function() {
@@ -477,57 +370,45 @@
     const isOpen = body.classList.toggle("open");
     btn.textContent = isOpen ? "▲ Đóng" : "▼ Mở";
     if (isOpen) {
-      // Luôn đọc thẳng từ Firebase khi mở để hiển thị key mới nhất
       try {
         const snap = await getDoc(settingsRef);
-        if (snap.exists()) {
-          const d = snap.data();
-          document.getElementById("inputApiKey").value     = (d.apiKey        && d.apiKey.trim())        ? d.apiKey        : "";
-          document.getElementById("inputCaptchaKey").value = (d.captchaApiKey && d.captchaApiKey.trim()) ? d.captchaApiKey : "";
-          window._cachedApiKey        = d.apiKey        || "";
-          window._cachedCaptchaApiKey = d.captchaApiKey || "";
-          updateSavedDot(!!(d.apiKey || d.captchaApiKey));
-        } else {
-          document.getElementById("inputApiKey").value     = "";
-          document.getElementById("inputCaptchaKey").value = "";
-        }
-      } catch(e) {
-        // fallback về cache nếu lỗi mạng
-        document.getElementById("inputApiKey").value     = window._cachedApiKey        || "";
-        document.getElementById("inputCaptchaKey").value = window._cachedCaptchaApiKey || "";
-      }
+        if (snap.exists()) { applyDataToCache(snap.data()); }
+      } catch(e) {}
+      fillFormFromCache();
     }
   };
 
   window.saveApiKeys = async function() {
-    const key1 = document.getElementById("inputApiKey").value.trim();
-    const key2 = document.getElementById("inputCaptchaKey").value.trim();
-    if (!key1 && !key2) { setStatusMsg("⚠️ Vui lòng nhập ít nhất một API key.", "error"); return; }
+    const payload = {
+      apiKey:           document.getElementById("inputApiKey").value.trim(),
+      captchaApiKey:    document.getElementById("inputCaptchaKey").value.trim(),
+      password:         document.getElementById("inputPassword").value.trim(),
+      withdrawPassword: document.getElementById("inputWithdrawPassword").value.trim(),
+      tgChatId:         document.getElementById("inputTgChatId").value.trim(),
+    };
+    const hasAny = Object.values(payload).some(v => v);
+    if (!hasAny) { setStatusMsg("⚠️ Vui lòng nhập ít nhất một trường.", "error"); return; }
     const btn = document.querySelector(".api-btn-save");
     btn.disabled = true; btn.textContent = "⏳ Đang lưu...";
     try {
-      // Ghi đè hoàn toàn — xóa key cũ, lưu key mới
-      await setDoc(settingsRef, { apiKey: key1, captchaApiKey: key2 });
-      window._cachedApiKey        = key1;
-      window._cachedCaptchaApiKey = key2;
+      await setDoc(settingsRef, payload);
+      applyDataToCache(payload);
       setStatusMsg("✅ Đã lưu lên Firebase thành công!", "success");
-      updateSavedDot(!!(key1 || key2));
-    } catch(e) {
-      setStatusMsg("❌ Lỗi: " + e.message, "error");
-    }
-    btn.disabled = false; btn.textContent = "💾 Lưu API Keys";
+      updateSavedDot(hasAny);
+    } catch(e) { setStatusMsg("❌ Lỗi: " + e.message, "error"); }
+    btn.disabled = false; btn.textContent = "💾 Lưu tất cả cài đặt";
   };
 
   window.resetApiKeys = async function() {
-    if (!confirm("Reset về API key mặc định? Dữ liệu trên Firebase sẽ bị xoá.")) return;
+    if (!confirm("Reset về mặc định? Tất cả cài đặt trên Firebase sẽ bị xoá.")) return;
     const btn = document.querySelector(".api-btn-reset");
     btn.disabled = true; btn.textContent = "⏳...";
     try {
-      await setDoc(settingsRef, { apiKey: "", captchaApiKey: "" });
-      window._cachedApiKey = ""; window._cachedCaptchaApiKey = "";
-      document.getElementById("inputApiKey").value     = "";
-      document.getElementById("inputCaptchaKey").value = "";
-      setStatusMsg("🔄 Đã reset về key mặc định.", "success");
+      const empty = { apiKey:"", captchaApiKey:"", password:"", withdrawPassword:"", tgChatId:"" };
+      await setDoc(settingsRef, empty);
+      applyDataToCache(empty);
+      fillFormFromCache();
+      setStatusMsg("🔄 Đã reset về mặc định.", "success");
       updateSavedDot(false);
     } catch(e) { setStatusMsg("❌ Lỗi: " + e.message, "error"); }
     btn.disabled = false; btn.textContent = "🔄 Reset";
@@ -535,28 +416,26 @@
 
   window.showActiveKeys = async function() {
     const box = document.getElementById("activeKeyBox");
-    const isVisible = box.style.display !== "none";
-    if (isVisible) { box.style.display = "none"; return; }
-    // Đọc thẳng từ Firebase
-    let apiKey = "", captchaKey = "";
+    if (box.style.display !== "none") { box.style.display = "none"; return; }
+
+    let cfg = { ...window._cfg };
     try {
       const snap = await getDoc(settingsRef);
-      if (snap.exists()) {
-        const d = snap.data();
-        apiKey     = (d.apiKey        && d.apiKey.trim())        ? d.apiKey        : DEFAULT_API_KEY;
-        captchaKey = (d.captchaApiKey && d.captchaApiKey.trim()) ? d.captchaApiKey : DEFAULT_CAPTCHA_API_KEY;
-      } else {
-        apiKey = DEFAULT_API_KEY; captchaKey = DEFAULT_CAPTCHA_API_KEY;
-      }
-    } catch(e) {
-      apiKey = DEFAULT_API_KEY; captchaKey = DEFAULT_CAPTCHA_API_KEY;
-    }
-    const v1 = document.getElementById("activeApiKeyVal");
-    const v2 = document.getElementById("activeCaptchaKeyVal");
-    v1.textContent = apiKey;
-    v2.textContent = captchaKey;
-    v1.className = "active-key-val" + (apiKey === DEFAULT_API_KEY ? " is-default" : "");
-    v2.className = "active-key-val" + (captchaKey === DEFAULT_CAPTCHA_API_KEY ? " is-default" : "");
+      if (snap.exists()) { applyDataToCache(snap.data()); cfg = { ...window._cfg }; }
+    } catch(e) {}
+
+    const rows = [
+      { id: "activeApiKeyVal",    val: cfg.apiKey           || DEFAULT_API_KEY,         isDefault: !cfg.apiKey },
+      { id: "activeCaptchaKeyVal",val: cfg.captchaApiKey    || DEFAULT_CAPTCHA_API_KEY, isDefault: !cfg.captchaApiKey },
+      { id: "activePasswordVal",  val: cfg.password         || "(chưa đặt)",            isDefault: !cfg.password },
+      { id: "activeWithdrawVal",  val: cfg.withdrawPassword || "(chưa đặt)",            isDefault: !cfg.withdrawPassword },
+      { id: "activeTgChatIdVal",  val: cfg.tgChatId         || "(chưa đặt)",            isDefault: !cfg.tgChatId },
+    ];
+    rows.forEach(({ id, val, isDefault }) => {
+      const el = document.getElementById(id);
+      el.textContent = val;
+      el.className = "active-key-val" + (isDefault ? " is-default" : "");
+    });
     box.style.display = "block";
   };
 
@@ -570,8 +449,9 @@
     } catch(e) { alert("Không thể copy: " + val); }
   };
 
-  loadApiKeysFromFirebase();
+  loadSettings();
 
+  // ===== RENDER =====
   function highlightText(text, keyword) {
     if (!keyword) return text;
     const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -626,9 +506,7 @@
   window.handleSearch = () => {
     const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
     document.getElementById("clearBtn").classList.toggle("visible", keyword.length > 0);
-    const filtered = keyword
-      ? allAccounts.filter(({ data }) => data.name.toLowerCase().includes(keyword) || data.account.toLowerCase().includes(keyword))
-      : allAccounts;
+    const filtered = keyword ? allAccounts.filter(({data}) => data.name.toLowerCase().includes(keyword) || data.account.toLowerCase().includes(keyword)) : allAccounts;
     renderAccounts(filtered, keyword);
   };
 
@@ -676,8 +554,7 @@
   };
 
   window.copyText = async (text) => {
-    try { await navigator.clipboard.writeText(text); alert("Đã copy: " + text); }
-    catch { alert("Không thể copy."); }
+    try { await navigator.clipboard.writeText(text); alert("Đã copy: " + text); } catch { alert("Không thể copy."); }
   };
 
   window.copyAll = async () => {
@@ -688,17 +565,14 @@
       const tag = item.querySelector(".bank-tag")?.textContent.trim() || "";
       if (name && account && tag) lines.push(`${name} - ${account} - ${tag}`);
     });
-    try { await navigator.clipboard.writeText(lines.join("\n")); alert("Đã sao chép danh sách."); }
-    catch { alert("Không thể sao chép danh sách."); }
+    try { await navigator.clipboard.writeText(lines.join("\n")); alert("Đã sao chép danh sách."); } catch { alert("Không thể sao chép."); }
   };
 
   window.deleteAccount = async (id) => {
     if (confirm("Bạn có chắc muốn xoá?")) await deleteDoc(doc(db, "accounts", id));
   };
 
-  window.toggleTagInput = (id) => {
-    document.getElementById(`tagInputRow-${id}`).classList.toggle('show');
-  };
+  window.toggleTagInput = (id) => { document.getElementById(`tagInputRow-${id}`).classList.toggle('show'); };
 
   window.addExtraTag = async (id, inputId) => {
     const input = document.getElementById(inputId);
@@ -733,16 +607,13 @@
   };
 
   const q = query(accountsCol, orderBy("time", "desc"));
-
   onSnapshot(q, (snapshot) => {
     allAccounts = [];
     snapshot.forEach(docSnap => {
       allAccounts.push({ data: docSnap.data(), id: docSnap.id, date: docSnap.data().time?.toDate().toLocaleString("vi-VN") || "" });
     });
     const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
-    const filtered = keyword
-      ? allAccounts.filter(({ data }) => data.name.toLowerCase().includes(keyword) || data.account.toLowerCase().includes(keyword))
-      : allAccounts;
+    const filtered = keyword ? allAccounts.filter(({data}) => data.name.toLowerCase().includes(keyword) || data.account.toLowerCase().includes(keyword)) : allAccounts;
     renderAccounts(filtered, keyword);
   });
 </script>
