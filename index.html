@@ -8,6 +8,7 @@
   <style>
     body { font-family: 'Inter', sans-serif; background: #f2f4f8; padding: 20px; max-width: 600px; margin: auto; }
     input, select, textarea, button { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+    select { appearance: auto; }
     .search-wrapper { position: relative; margin: 10px 0; }
     .search-wrapper input { padding-left: 38px; margin: 0; border: 2px solid #4CAF50; border-radius: 10px; font-size: 15px; background: white; box-shadow: 0 2px 8px rgba(76,175,80,0.12); transition: border-color 0.2s, box-shadow 0.2s; }
     .search-wrapper input:focus { outline: none; border-color: #2196F3; box-shadow: 0 2px 12px rgba(33,150,243,0.18); }
@@ -20,7 +21,7 @@
     .account-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
     .account-header { display: flex; justify-content: space-between; align-items: start; }
     .account-meta { margin-top: 5px; color: #555; font-size: 14px; }
-    .bank-tag { background: #d7eaff; color: #007bff; font-weight: bold; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+    .bank-tag { background: #d7eaff; color: #007bff; font-weight: 600; padding: 5px 12px 5px 6px; border-radius: 22px; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
     .extra-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
     .extra-tag { background: #fff3cd; color: #856404; font-size: 13px; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; transition: opacity 0.2s ease; }
     .extra-tag.removing { opacity: 0; transform: scale(0.9); }
@@ -37,12 +38,27 @@
     .btn-tag  { background: #f0ad4e; color: #222; }
     .btn-del  { background: #d9534f; }
     .section-title { font-weight: bold; margin: 20px 0 10px; }
+
+    /* Searchable bank dropdown */
+    .bank-select-wrapper { position: relative; margin: 6px 0; }
+    .bank-select-display { width: 100%; padding: 10px 36px 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; background: white; cursor: pointer; text-align: left; color: #333; box-sizing: border-box; display: flex; align-items: center; gap: 8px; }
+    .bank-select-display.placeholder { color: #999; }
+    .bank-select-display .arrow { font-size: 11px; color: #888; margin-left: 6px; flex-shrink: 0; }
+    .bank-dropdown { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; }
+    .bank-dropdown.open { display: block; }
+    .bank-dropdown-search { display: flex; align-items: center; padding: 8px 10px; border-bottom: 1px solid #eee; gap: 6px; }
+    .bank-dropdown-search input { border: none; outline: none; font-size: 15px; flex: 1; padding: 4px 0; margin: 0; width: auto; }
+    .bank-dropdown-list { max-height: 220px; overflow-y: auto; }
+    .bank-option { padding: 10px 14px; cursor: pointer; font-size: 15px; transition: background 0.15s; }
+    .bank-option:hover, .bank-option.active { background: #e8f4fd; color: #007bff; }
+    .bank-option.no-result { color: #999; font-style: italic; cursor: default; }
+    .bank-option.no-result:hover { background: none; }
   </style>
 </head>
 <body>
 
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-  <h2 style="display: flex; align-items: center; gap: 8px; margin: 0;">📋 Tôi là Minh anhs ngu</h2>
+  <h2 style="display: flex; align-items: center; gap: 8px; margin: 0;">📋 Danh sách tài khoản</h2>
   <div style="font-size: 15px; font-weight: 500;">Tổng Bank: <span id="totalCount">0</span></div>
 </div>
 
@@ -60,23 +76,147 @@
 
 <input type="text" id="name" placeholder="Tên" />
 <input type="text" id="account" placeholder="Số tài khoản" />
-<select id="tagSelect">
-  <option>-- Nhãn --</option>
-  <option>VIB</option><option>MSB</option><option>VCB</option><option>TCB</option>
-</select>
+<div class="bank-select-wrapper" id="wrapper-tagSelect">
+  <button type="button" class="bank-select-display placeholder" onclick="toggleBankDropdown('tagSelect')">
+    <span id="display-tagSelect">-- Chọn ngân hàng --</span><span class="arrow">▼</span>
+  </button>
+  <input type="hidden" id="tagSelect" value="" />
+  <div class="bank-dropdown" id="dropdown-tagSelect">
+    <div class="bank-dropdown-search">🔍 <input type="text" placeholder="Tìm ngân hàng..." oninput="filterBankOptions('tagSelect', this.value)" /></div>
+    <div class="bank-dropdown-list" id="list-tagSelect"></div>
+  </div>
+</div>
 <button onclick="addAccount()" id="btnAdd">Thêm</button>
 
 <div class="section-title">🧾 Nhập hàng loạt</div>
 <textarea id="bulkInput" rows="5" placeholder="Nhập mỗi dòng: Tên - STK"></textarea>
-<select id="bulkTag">
-  <option>-- Nhãn --</option>
-  <option>VIB</option><option>MSB</option><option>VCB</option><option>TCB</option>
-</select>
+<div class="bank-select-wrapper" id="wrapper-bulkTag">
+  <button type="button" class="bank-select-display placeholder" onclick="toggleBankDropdown('bulkTag')">
+    <span id="display-bulkTag">-- Chọn ngân hàng --</span><span class="arrow">▼</span>
+  </button>
+  <input type="hidden" id="bulkTag" value="" />
+  <div class="bank-dropdown" id="dropdown-bulkTag">
+    <div class="bank-dropdown-search">🔍 <input type="text" placeholder="Tìm ngân hàng..." oninput="filterBankOptions('bulkTag', this.value)" /></div>
+    <div class="bank-dropdown-list" id="list-bulkTag"></div>
+  </div>
+</div>
 <button onclick="addBulk()" id="btnBulk">➕ Thêm hàng loạt</button>
 <button onclick="copyAll()">📋 Sao chép danh sách</button>
 <button onclick="deleteSelectedAccounts()">🗑️ Xoá đã chọn</button>
 
 <div id="accountList">Đang tải danh sách...</div>
+
+<script>
+  // BANK_LIST tĩnh fallback (shortName -> tên hiển thị trong app)
+  const STATIC_BANK_LIST = ["ABBANK","ACB BANK","AGRIBANK","ANZ BANK","BAC A BANK","BAO VIET BANK","BIDV BANK","BIDC","BVBANK","CAKE","CB BANK","CIMB","CIMB BANK","CITI","CO OPBANK","Co-opBank","DBS","EXIMBANK","FIRST BANK","GP BANK","HD BANK","HNB","HONGLEONG BANK","HSBC","IBK","IBK HCM","INDOVINA BANK","IVB","KASIKORNBANK","KB KOOKMIN BANK","KBANK","KEB Hana Bank","KIENLONGBANK","KOOKMI","LIENVIET BANK","LIOBANK","LP BANK","MAFC","MBBANK","MBV","MBV BANK","Mirae Asset Finance Company","MOMO","MSB","MSB BANK","NAMA BANK","NCB","NCB BANK","NHB","NONGHYUP BANK","OCB BANK","PGBANK","PUBLICBANK","PVCOMBANK","SACOMBANK","SAIGONBANK","SCB","SCB BANK","SCBVL","SEABANK","SHB BANK","SHINHAN BANK","SHINHAN BANK VN","Social Policy Bank of Vietnam","Standard Chartered","State Bank of Vietnam","TECHCOMBANK","TIMO BANK","TIMO BY BAN VIET BANK","TPBANK","UBANK","UOB","UOB (United Overseas Bank)","VDB","VIB BANK","VIET CAPITAL BANK (BVBANK)","VIETA BANK","VIETBANK","VIETCOMBANK","VIETINBANK","VIETNAM BANK FOR SOCIAL POLICIES","Vietnam Development Bank","Vietcombank Neo Limited (VCBNeo)","VIKKI BANK","VIKKI BY HDBANK","Vikki Digital Bank","VPBANK","VR BANK","VRB(VIET NGA)","WOORI BANK","ALL BANK SUPPORT","Saigon-Hanoi Commercial Joint Stock Bank"];
+
+  // logoMap: shortName (uppercase) -> logo URL từ VietQR
+  var LOGO_MAP = {};
+  var BANK_LIST_WITH_LOGO = STATIC_BANK_LIST.map(function(b){ return { name: b, logo: "" }; });
+
+  // Fetch logo từ VietQR API
+  fetch("https://api.vietqr.io/v2/banks")
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data && data.data) {
+        data.data.forEach(function(b){
+          if (b.logo) {
+            // Map theo shortName (uppercase) và code
+            LOGO_MAP[b.shortName.toUpperCase()] = b.logo;
+            LOGO_MAP[b.code.toUpperCase()] = b.logo;
+          }
+        });
+      }
+      // Refresh dropdowns nếu đang mở
+      ["tagSelect","bulkTag"].forEach(function(id){
+        var dd = document.getElementById("dropdown-" + id);
+        if (dd && dd.classList.contains("open")) renderBankList(id, "");
+      });
+      // Cập nhật logo trên display đang chọn
+      ["tagSelect","bulkTag"].forEach(function(id){
+        var val = document.getElementById(id) && document.getElementById(id).value;
+        if (val) _updateDisplayLogo(id, val);
+      });
+    })
+    .catch(function(){});
+
+  function _getLogo(bankName) {
+    var key = bankName.toUpperCase().replace(/\s+BANK$/, "").trim();
+    // Thử khớp trực tiếp
+    if (LOGO_MAP[bankName.toUpperCase()]) return LOGO_MAP[bankName.toUpperCase()];
+    // Thử bỏ " BANK" ở cuối
+    var noBank = bankName.toUpperCase().replace(/\s+BANK$/, "").trim();
+    if (LOGO_MAP[noBank]) return LOGO_MAP[noBank];
+    // Thử lấy từ đầu (MBBANK -> MB)
+    var first = bankName.toUpperCase().split(" ")[0];
+    if (LOGO_MAP[first]) return LOGO_MAP[first];
+    return "";
+  }
+
+  function _updateDisplayLogo(id, val) {
+    var display = document.getElementById("display-" + id);
+    if (!display) return;
+    var logo = _getLogo(val);
+    var imgHtml = logo ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">' : '🏦';
+    display.innerHTML = imgHtml + '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + val + '</span>';
+  }
+
+  function renderBankList(id, filter) {
+    filter = filter || "";
+    var list = document.getElementById("list-" + id);
+    if (!list) return;
+    var lower = filter.toLowerCase();
+    var filtered = STATIC_BANK_LIST.filter(function(b){ return b.toLowerCase().includes(lower); });
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="bank-option no-result">Không tìm thấy ngân hàng</div>';
+      return;
+    }
+    list.innerHTML = filtered.map(function(b){
+      var logo = _getLogo(b);
+      var icon = logo
+        ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:22px;height:22px;object-fit:contain;border-radius:4px;flex-shrink:0;">'
+        : '<span style="font-size:18px;flex-shrink:0;">🏦</span>';
+      return '<div class="bank-option" onclick="selectBank(\'' + id + '\',\'' + b.replace(/'/g,"\\'") + '\')" style="display:flex;align-items:center;gap:10px;">' + icon + '<span>' + b + '</span></div>';
+    }).join("");
+  }
+
+  function toggleBankDropdown(id) {
+    var dd = document.getElementById("dropdown-" + id);
+    var isOpen = dd.classList.contains("open");
+    document.querySelectorAll(".bank-dropdown.open").forEach(function(el){ el.classList.remove("open"); });
+    if (!isOpen) {
+      dd.classList.add("open");
+      renderBankList(id, "");
+      var inp = dd.querySelector("input");
+      inp.value = "";
+      inp.focus();
+    }
+  }
+
+  function filterBankOptions(id, val) { renderBankList(id, val); }
+
+  window.getBankLogo = function(name) { return _getLogo(name); };
+
+  function selectBank(id, val) {
+    document.getElementById(id).value = val;
+    var display = document.getElementById("display-" + id);
+    var logo = _getLogo(val);
+    var imgHtml = logo ? '<img src="' + logo + '" onerror="this.style.display=\'none\'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;flex-shrink:0;">' : '🏦';
+    display.innerHTML = imgHtml + '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + val + '</span>';
+    display.closest(".bank-select-display").classList.remove("placeholder");
+    document.getElementById("dropdown-" + id).classList.remove("open");
+  }
+
+  document.addEventListener("click", function(e) {
+    if (!e.target.closest(".bank-select-wrapper")) {
+      document.querySelectorAll(".bank-dropdown.open").forEach(function(el){ el.classList.remove("open"); });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    ["tagSelect","bulkTag"].forEach(function(id){ renderBankList(id, ""); });
+  });
+</script>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -127,7 +267,7 @@
             <div>${highlightText(data.account, keyword)}</div>
             <div class="account-meta">${date}</div>
           </div>
-          <div><span class="bank-tag">${data.tag} BANK</span></div>
+          <div><span class="bank-tag"><img src="" id="banklogo-${id}" style="width:36px;height:36px;object-fit:contain;border-radius:5px;vertical-align:middle;" onerror="this.style.display='none'">${data.tag}</span></div>
         </div>
         <div class="extra-tags" id="tags-${id}">
           ${extraTags.map(tag => `<span class="extra-tag">${tag} <button onclick="removeTag('${id}', '${tag}')">×</button></span>`).join("")}
@@ -144,6 +284,9 @@
         </div>
       `;
       list.appendChild(div);
+      // Set logo ngân hàng
+      var logoImg = div.querySelector("#banklogo-" + id);
+      if (logoImg && window.getBankLogo) logoImg.src = window.getBankLogo(data.tag);
     });
     document.getElementById("totalCount").textContent = allAccounts.length;
     resultCount.textContent = keyword ? `${accounts.length} / ${allAccounts.length} kết quả` : "";
@@ -170,20 +313,22 @@
     const account = document.getElementById("account").value.trim();
     const tag = document.getElementById("tagSelect").value;
     const btn = document.getElementById("btnAdd");
-    if (!name || !account || tag === "-- Nhãn --") return alert("Vui lòng nhập đủ thông tin và chọn nhãn.");
+    if (!name || !account || !tag) return alert("Vui lòng nhập đủ thông tin và chọn ngân hàng.");
     btn.disabled = true; btn.textContent = "Đang thêm...";
     await addDoc(accountsCol, { name, account, tag, extra_tags: [], time: serverTimestamp() });
     btn.disabled = false; btn.textContent = "Thêm";
     document.getElementById("name").value = "";
     document.getElementById("account").value = "";
-    document.getElementById("tagSelect").selectedIndex = 0;
+    document.getElementById("tagSelect").value = "";
+    document.getElementById("display-tagSelect").textContent = "-- Chọn ngân hàng --";
+    document.getElementById("display-tagSelect").closest(".bank-select-display").classList.add("placeholder");
   };
 
   window.addBulk = async () => {
     const text = document.getElementById("bulkInput").value.trim();
     const tag = document.getElementById("bulkTag").value;
     const btn = document.getElementById("btnBulk");
-    if (!text || tag === "-- Nhãn --") return alert("Vui lòng nhập dữ liệu và chọn nhãn.");
+    if (!text || !tag) return alert("Vui lòng nhập dữ liệu và chọn ngân hàng.");
     btn.disabled = true; btn.textContent = "Đang thêm...";
     for (const line of text.split("\n")) {
       const parts = line.split(/[-–]/);
@@ -194,7 +339,9 @@
     }
     btn.disabled = false; btn.textContent = "➕ Thêm hàng loạt";
     document.getElementById("bulkInput").value = "";
-    document.getElementById("bulkTag").selectedIndex = 0;
+    document.getElementById("bulkTag").value = "";
+    document.getElementById("display-bulkTag").textContent = "-- Chọn ngân hàng --";
+    document.getElementById("display-bulkTag").closest(".bank-select-display").classList.add("placeholder");
   };
 
   window.copyText = async (text) => {
@@ -207,7 +354,7 @@
     document.querySelectorAll(".account-item").forEach(item => {
       const name = item.querySelector("strong")?.textContent.trim() || "";
       const account = item.querySelector(".account-header div:nth-child(1)").children[1]?.textContent.trim() || "";
-      const tag = item.querySelector(".bank-tag")?.textContent.replace(" BANK", "").trim() || "";
+      const tag = item.querySelector(".bank-tag")?.textContent.trim() || "";
       if (name && account && tag) lines.push(`${name} - ${account} - ${tag}`);
     });
     try { await navigator.clipboard.writeText(lines.join("\n")); alert("Đã sao chép danh sách."); }
@@ -255,6 +402,7 @@
   };
 
   const q = query(accountsCol, orderBy("time", "desc"));
+
   onSnapshot(q, (snapshot) => {
     allAccounts = [];
     snapshot.forEach(docSnap => {
