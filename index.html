@@ -161,16 +161,17 @@
       <button class="api-eye-btn" onclick="toggleVisible('inputWithdrawPassword', 'eye4')" id="eye4" title="Hiện/ẩn">👁️</button>
     </div>
 
-    <!-- NHÓM 3: TELEGRAM -->
-    <div class="api-section-heading" style="margin-top:18px;">📱 Telegram</div>
-
-    <div class="api-field-label">
-      💬 Telegram Chat ID
-      <span class="badge badge-teal">TG_CHATID</span>
-    </div>
-    <div style="position:relative;">
-      <input type="text" id="inputTgChatId" placeholder="Nhập Telegram Chat ID..." autocomplete="off"
-        style="font-family:'Courier New',monospace;font-size:14px;letter-spacing:0.5px;color:#1a3a5c;background:#f7faff;border:1.5px solid #b3cde8;border-radius:8px;margin:0;width:100%;box-sizing:border-box;padding:9px 12px;" />
+    <!-- NHÓM 3: TELEGRAM — ẨN KHỎI UI, CODE VẪN GIỮ NGUYÊN -->
+    <div style="display:none;">
+      <div class="api-section-heading">📱 Telegram</div>
+      <div class="api-field-label">
+        💬 Telegram Chat ID
+        <span class="badge badge-teal">TG_CHATID</span>
+      </div>
+      <div style="position:relative;">
+        <input type="text" id="inputTgChatId" placeholder="Nhập Telegram Chat ID..." autocomplete="off"
+          style="font-family:'Courier New',monospace;font-size:14px;letter-spacing:0.5px;color:#1a3a5c;background:#f7faff;border:1.5px solid #b3cde8;border-radius:8px;margin:0;width:100%;box-sizing:border-box;padding:9px 12px;" />
+      </div>
     </div>
 
     <!-- ACTIONS -->
@@ -206,7 +207,8 @@
         <span class="active-key-val" id="activeWithdrawVal"></span>
         <button class="btn-copy-key" onclick="copyActiveKey('activeWithdrawVal')">📋 Copy</button>
       </div>
-      <div class="active-key-row">
+      <!-- Ẩn dòng TG Chat ID trong "Xem cài đặt đang hoạt động" -->
+      <div class="active-key-row" style="display:none;">
         <span class="active-key-label">💬 TG Chat ID:</span>
         <span class="active-key-val" id="activeTgChatIdVal"></span>
         <button class="btn-copy-key" onclick="copyActiveKey('activeTgChatIdVal')">📋 Copy</button>
